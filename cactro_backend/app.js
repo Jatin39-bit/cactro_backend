@@ -26,7 +26,7 @@ app.use("*", (req, res) => {
   - Fetches details of a specific repository and its issues.
 
   POST /github/:repoName/issues
-  - Creates a new issue in the specified repository. Requires x-api-key header for authentication.
+  - Creates a new issue in the specified repository. Requires x-api-key header for authentication (check readme.md file for key).
   `
 );
 });
