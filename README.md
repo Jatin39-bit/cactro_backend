@@ -1,30 +1,84 @@
-# GitHub API Integration Backend
+# Cactro Backend
 
-This project is a Node.js backend that integrates with the GitHub API to display GitHub activity on your portfolio website. It provides endpoints to fetch profile data, retrieve repository details, and create issues on a repository.
+This is the backend for the Cactro application, which interacts with the GitHub API to fetch user profiles, repositories, and create issues.
 
-## Features
+## Project Structure
 
-- **GET /github**  
-  Retrieves your GitHub profile data including name, username, avatar, bio, followers, following, public repository count, and a list of repositories.
+```
+.env
+app.js
+package.json
+server.js
+controllers/
+  github.controller.js
+routes/
+  github.route.js
+```
 
-- **GET /github/:repoName**  
-  Retrieves detailed information about a specific repository such as its description, stars, forks, language, creation date, and open issues.
+## Installation
 
-- **POST /github/:repoName/issues**  
-  Creates a new issue in the specified repository. This endpoint is secured using an API key that must be provided in the `x-api-key` header.
+1. Clone the repository:
+    ```sh
+    git clone <repository-url>
+    cd cactro_backend
+    ```
 
-- **Rate Limiting**  
-  The API is protected with a rate limiter to prevent abuse (500 requests per 15 minutes).
+2. Install dependencies:
+    ```sh
+    npm install
+    ```
 
-## Prerequisites
+3. Create a `.env` file in the root directory and add the following environment variables:
+    ```env
+    PORT=3001
+    GITHUB_TOKEN=your_github_token
+    GITHUB_USERNAME=your_github_username
+    API_KEY=your_api_key
+    ```
 
-- **Node.js** (v12 or higher recommended)
-- **npm** (Node Package Manager)
-- A GitHub Personal Access Token with the necessary scopes:
-  - `read:user` (to fetch your profile data)
-  - `public_repo` (to create issues on public repositories)  
-    _or_  
-  - `repo` (if working with private repositories)
-- An API key to secure the issue creation endpoint
+## Usage
 
-**API_KEY=AIzaSyD-1J2ZQ7QJ**
+1. Start the server:
+    ```sh
+    npm start
+    ```
+
+2. The server will run on the port specified in the `.env` file (default is 3001).
+
+## API Endpoints
+
+### Get GitHub Profile
+
+- **URL:** `/github`
+- **Method:** `GET`
+- **Description:** Fetches the GitHub profile and repositories of the user specified in the `.env` file.
+
+### Get GitHub Repository
+
+- **URL:** `/github/:repoName`
+- **Method:** `GET`
+- **Description:** Fetches details of a specific repository and its issues.
+- **URL Parameters:**
+  - `repoName` - The name of the repository.
+
+### Create GitHub Issue
+
+- **URL:** `/github/:repoName/issues`
+- **Method:** `POST`
+- **Description:** Creates a new issue in the specified repository.
+- **URL Parameters:**
+  - `repoName` - The name of the repository.
+- **Headers:**
+  - `x-api-key = AIzaSyD-1J2ZQ7QJ` - API key for authentication.
+- **Request Body:**
+  - `title` - The title of the issue (required).
+  - `body` - The body of the issue (optional).
+
+## Rate Limiting
+
+The application uses `express-rate-limit` to limit the number of requests to 500 per 15 minutes.
+
+## License
+
+This project is licensed under the ISC License.
+
