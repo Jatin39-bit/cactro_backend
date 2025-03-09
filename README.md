@@ -78,7 +78,5 @@ routes/
 
 The application uses `express-rate-limit` to limit the number of requests to 500 per 15 minutes.
 
-## License
 
-This project is licensed under the ISC License.
 
