@@ -16,26 +16,19 @@ app.use(limiter);
 app.use("/github", githubRouter);
 
 app.use("*", (req, res) => {
-  res.status(404).json({
-    message: "Route not found. Available routes are:",
-    routes: {
-      getGithubProfile: {
-        method: "GET",
-        path: "/github",
-        description: "Fetches the GitHub profile and repositories of the user specified in the .env file."
-      },
-      getGithubRepo: {
-        method: "GET",
-        path: "/github/:repoName",
-        description: "Fetches details of a specific repository and its issues."
-      },
-      createGithubIssue: {
-        method: "POST",
-        path: "/github/:repoName/issues",
-        description: "Creates a new issue in the specified repository. Requires x-api-key header for authentication."
-      }
-    }
-  });
+  res.status(404).send(
+  `Route not found. Available routes are:
+
+  GET /github
+  - Fetches the GitHub profile and repositories of the user specified in the .env file.
+
+  GET /github/:repoName
+  - Fetches details of a specific repository and its issues.
+
+  POST /github/:repoName/issues
+  - Creates a new issue in the specified repository. Requires x-api-key header for authentication.
+  `
+);
 });
 
 
